@@ -1,6 +1,6 @@
 import { Component, ComponentFactoryResolver, ComponentRef, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { Router } from '@angular/router';
-import { CustomerResponse } from 'src/app/customer/customermodel/customer-request';
+import { CustomerResponse } from 'src/app/components/customer/customermodel/customer-request';
 import { CustomerticketserviceService } from 'src/app/services/customerticketservice.service';
 import { TicketserviceService } from 'src/app/services/ticketservice.service';
 import { TicketInfoResponse } from '../ticketmodel/ticketmodel';
@@ -140,7 +140,7 @@ export class TicketsdetailComponent implements OnInit {
     this.CloseTicketDetailModal();
     this.showToast('Record Successfully inserted');
   }
-  
+
   showToast(msg) {
     Swal.fire({
       toast: true, position: 'top-end', showConfirmButton: false, timer: 5000,

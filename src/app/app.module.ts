@@ -9,7 +9,7 @@ import { FooterComponent } from './components/layout/footer/footer.component';
 import { RightbarComponent } from './components/layout/rightbar/rightbar.component';
 import { CustomerComponent } from './components/customer/customer/customer.component';
 import { DealerComponent } from './components/dealer/dealer/dealer.component';
-import { ReportsComponent } from './reports/reports/reports.component';
+import { ReportsComponent } from './components/reports/reports/reports.component';
 import { AddCustomerComponent } from './components/customer/add-customer/add-customer.component';
 import { TicketinformationComponent } from './components/ticket/ticketinformation/ticketinformation.component';
 import { TicketsdetailComponent } from './components/ticket/ticketsdetail/ticketsdetail.component';
