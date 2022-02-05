@@ -1,0 +1,183 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <!-- <h1>Add Customer</h1> -->
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="javascript:void()">Customer</a></li>
+                    <li class="breadcrumb-item active">Add Customer</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+
+    <div class="card card-primary">
+        <div class="card-header">
+            <h3 class="card-title">Add Customer</h3>
+        </div>
+        <!-- /.card-header -->
+        <!-- form start -->
+
+        <form [formGroup]="addCustomerForm">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">First Name</label>
+                                    <input type="text" class="form-control" id="cFirstName" placeholder="First Name"
+                                        formControlName='customerFirstName' [(ngModel)]="customerReq.customerFirstName"
+                                        [ngClass]="{ 'is-invalid': submitted && f.customerFirstName.errors }"
+                                        maxlength="30" autocomplete="off" autocapitalize="characters">
+                                    <div *ngIf="submitted && f.customerFirstName.errors" class="invalid-feedback">
+                                        <div *ngIf="f.customerFirstName.errors.required">First Name is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Last Name</label>
+                                    <input type="text" class="form-control" id="cLastName" placeholder="Last Name"
+                                        formControlName='customerLastName' [(ngModel)]="customerReq.customerLastName"
+                                        [ngClass]="{ 'is-invalid': submitted && f.customerLastName.errors }"
+                                        maxlength="30" autocomplete="off">
+                                    <div *ngIf="submitted && f.customerLastName.errors" class="invalid-feedback">
+                                        <div *ngIf="f.customerLastName.errors.required">Last Name is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Gender</label>
+                                    <select type="text" class="form-control" id="cGender" placeholder="Gender Type"
+                                        formControlName='gender' [(ngModel)]="customerReq.gender"
+                                        [ngClass]="{ 'is-invalid': submitted && f.gender.errors }">
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                    </select>
+                                    <div *ngIf="submitted && f.gender.errors" class="invalid-feedback">
+                                        <div *ngIf="f.gender.errors.required">Select gender type</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Father Name</label>
+                                    <input type="text" class="form-control" id="cFatherName" placeholder="First Name"
+                                        formControlName='customerFatherName'
+                                        [(ngModel)]="customerReq.customerFatherName"
+                                        [ngClass]="{ 'is-invalid': submitted && f.customerFatherName.errors }"
+                                        maxlength="30" autocomplete="off">
+                                    <div *ngIf="submitted && f.customerFatherName.errors" class="invalid-feedback">
+                                        <div *ngIf="f.customerFatherName.errors.required">Father Name is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">CNIC #</label>
+                                    <input type="text" class="form-control" id="customerCNIC"
+                                        placeholder="Enter CNIC Number without (-)" formControlName='customerCNIC'
+                                        [(ngModel)]="customerReq.customerCNIC"
+                                        [ngClass]="{ 'is-invalid': submitted && f.customerCNIC.errors }"
+                                        (focusout)="SearchDuplicate(customerReq.customerCNIC)" maxlength="15"
+                                        (keypress)="numberOnly($event)" autocomplete="off">
+                                    <div *ngIf="submitted && f.customerCNIC.errors" class="invalid-feedback">
+                                        <div *ngIf="f.customerCNIC.errors.required">CNIC Number is required</div>
+                                    </div>
+                                    <div *ngIf="cnicDuplicate" style="color: red;">
+                                        <p>Record against this CNIC is already exist</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Passport #</label>
+                                    <input type="text" class="form-control" id="customerPassportNumber"
+                                        placeholder="Enter Passport Number" formControlName='customerPassport'
+                                        [(ngModel)]="customerReq.customerPassportNumber"
+                                        [ngClass]="{ 'is-invalid': submitted && f.customerPassport.errors }"
+                                        maxlength="15" autocomplete="off">
+                                    <div *ngIf="submitted && f.customerPassport.errors" class="invalid-feedback">
+                                        <div *ngIf="f.customerPassport.errors.required">Passport Number is required
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Mobile #</label>
+                                    <input type="text" class="form-control" id="customerMobileNumber"
+                                        placeholder="Mobile" formControlName='customerMobiel'
+                                        [(ngModel)]="customerReq.customerMobileNumber"
+                                        [ngClass]="{ 'is-invalid': submitted && f.customerMobiel.errors }"
+                                        maxlength="15" (keypress)="numberOnly($event)" autocomplete="off">
+                                    <div *ngIf="submitted && f.customerMobiel.errors" class="invalid-feedback">
+                                        <div *ngIf="f.customerMobiel.errors.required">Mobile number is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">WhatsApp #</label>
+                                    <input type="text" class="form-control" id="customerWhatsAppNumber"
+                                        placeholder="WhatsApp" formControlName='customerWhatsApp'
+                                        [(ngModel)]="customerReq.customerWhatsAppNumber" maxlength="15"
+                                        (keypress)="numberOnly($event)" autocomplete="off">
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Address</label>
+                            <textarea type="text" class="form-control" id="customerAddress" placeholder="Address"
+                                formControlName='customerAddress' [(ngModel)]="customerReq.customerAddress"
+                                [ngClass]="{ 'is-invalid': submitted && f.customerAddress.errors }"></textarea>
+                            <div *ngIf="submitted && f.customerAddress.errors" class="invalid-feedback" maxlength="198">
+                                <div *ngIf="f.customerAddress.errors.required">Address is required</div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <img id="customerImage" src="/assets/dist/img/images.png" alt="your image" />
+                        <div class="form-group">
+                            <label for="exampleInputFile">File input</label>
+                            <div class="input-group">
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="exampleInputFile">
+                                    <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.card-body -->
+
+            <div class="card-footer">
+                <button *ngIf="custID =='0'" (click)="addCustomer()" class="btn btn-primary mr-1">Submit</button>
+                <button *ngIf="custID !='0'" (click)="updateCustomer()" class="btn btn-primary mr-1">Update</button>
+                <button class="btn btn-secondary" (click)="onReset()">Reset</button>
+            </div>
+        </form>
+    </div>
+</section>
+<!-- /.content -->

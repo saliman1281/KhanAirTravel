@@ -1,0 +1,170 @@
+<div>
+    <form [formGroup]="addTicketForm">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Ticket Number</label>
+                            <input type="text" class="form-control" id="exampleInputEmail1"
+                                placeholder="Enter Ticket Number" formControlName='ticketNumber'
+                                [(ngModel)]="ticketReqObj.ticketNumber"
+                                [ngClass]="{ 'is-invalid': submitted && f.ticketNumber.errors }" maxlength="30"
+                                autocomplete="off" autocapitalize="characters">
+                            <div *ngIf="submitted && f.ticketNumber.errors" class="invalid-feedback">
+                                <div *ngIf="f.ticketNumber.errors.required">Ticket number is required</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Ticket PNR Number</label>
+                            <input type="text" class="form-control" id="exampleInputEmail1"
+                                placeholder="Enter Ticket PNR Number" formControlName='ticketPNR'
+                                [(ngModel)]="ticketReqObj.ticketPNR"
+                                [ngClass]="{ 'is-invalid': submitted && f.ticketPNR.errors }" maxlength="30"
+                                autocomplete="off">
+                            <div *ngIf="submitted && f.ticketPNR.errors" class="invalid-feedback">
+                                <div *ngIf="f.ticketPNR.errors.required">Ticket PNR number is required</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Airline</label>
+                            <select class="form-control" id="exampleInputEmail1" formControlName='airlineType'
+                                [(ngModel)]="ticketReqObj.airlineType"
+                                [ngClass]="{ 'is-invalid': submitted && f.airlineType.errors }">
+                                <option value="PIA">PIA</option>
+                                <option value="Emarats Airline">Emarats Airline</option>
+                                <option value="Gulf Airline">Gulf Airline</option>
+                                <option value="SerenAir">SerenAir</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">From</label>
+                            <input type="text" class="form-control" id="exampleInputPassword1" placeholder="To"
+                                formControlName='fromLocation' [(ngModel)]="ticketReqObj.fromLocation"
+                                [ngClass]="{ 'is-invalid': submitted && f.fromLocation.errors }" maxlength="30"
+                                autocomplete="off" autocapitalize="characters">
+                            <div *ngIf="submitted && f.fromLocation.errors" class="invalid-feedback">
+                                <div *ngIf="f.fromLocation.errors.required">From location is required</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">To</label>
+                            <input type="text" class="form-control" id="exampleInputPassword1" placeholder="To"
+                                formControlName='toLocation' [(ngModel)]="ticketReqObj.toLocation"
+                                [ngClass]="{ 'is-invalid': submitted && f.toLocation.errors }" maxlength="30"
+                                autocomplete="off" autocapitalize="characters">
+                            <div *ngIf="submitted && f.toLocation.errors" class="invalid-feedback">
+                                <div *ngIf="f.toLocation.errors.required">To location is required</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Cost Price</label>
+                            <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Cost Price"
+                                formControlName='ticketCost' [(ngModel)]="ticketReqObj.ticketCost"
+                                [ngClass]="{ 'is-invalid': submitted && f.ticketCost.errors }" maxlength="7"
+                                autocomplete="off" (keypress)="numberOnly($event)">
+                            <div *ngIf="submitted && f.ticketCost.errors" class="invalid-feedback">
+                                <div *ngIf="f.ticketCost.errors.required">Cost price is required</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Retail Price</label>
+                            <input type="text" class="form-control" id="exampleInputPassword1"
+                                placeholder="Retail Price" formControlName='ticketRetail'
+                                [(ngModel)]="ticketReqObj.ticketRetail"
+                                [ngClass]="{ 'is-invalid': submitted && f.ticketRetail.errors }" maxlength="7"
+                                autocomplete="off" (keypress)="numberOnly($event)">
+                            <div *ngIf="submitted && f.ticketRetail.errors" class="invalid-feedback">
+                                <div *ngIf="f.ticketRetail.errors.required">Retail price is required</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Ticket Type</label>
+                            <select type="date" class="form-control" id="ticketType" formControlName='ticketType'
+                                [(ngModel)]="ticketReqObj.ticketType" (change)="TicketTypeChange()">
+                                <option value="single">Single</option>
+                                <option value="return">Return</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Booking Date</label>
+                            <input type="date" class="form-control" id="booking_date" formControlName='bookingDate'
+                                [(ngModel)]="ticketReqObj.bookingDate"
+                                [ngClass]="{ 'is-invalid': submitted && f.bookingDate.errors }">
+                            <!-- <div *ngIf="submitted && f.bookingDate.errors" class="invalid-feedback">
+                                <div *ngIf="f.bookingDate.errors.required">Booking date is required</div>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-4">
+                <div class="col-md-8">
+                    <label for="exampleInputFile">Passport Upload</label>
+                    <img id="blah" src="/assets/dist/img/passport.jpg" alt="your image" />
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="custom-file">
+                                <input type="file" hidden class="custom-file-input" id="exampleInputFile">
+                                <label class="custom-file-label" hidden for="exampleInputFile">Choose file</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="isReturn">
+            <div class="col-4">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Return From</label>
+                    <input type="text" class="form-control" id="return_from" placeholder="Return From"
+                        formControlName='returnFrom' [(ngModel)]="ticketReqObj.returnFrom">
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Return To</label>
+                    <input type="text" class="form-control" id="return_to" placeholder="Return To"
+                        formControlName='returnTo' [(ngModel)]="ticketReqObj.returnTo">
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Return Date</label>
+                    <input type="date" class="form-control" id="return_date" formControlName='returnDate'
+                        [(ngModel)]="ticketReqObj.returnDate ">
+                </div>
+            </div>
+        </div>
+        <div class="form-group" style="float:right">
+            <button type="button" class="btn btn-default mr-1" (click)="CloseModal()">Close</button>
+            <button (click)="AddTicket()" class="btn btn-primary">Save</button>
+        </div>
+    </form>
+</div>
