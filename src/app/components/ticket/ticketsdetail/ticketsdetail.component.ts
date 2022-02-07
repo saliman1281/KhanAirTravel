@@ -1,6 +1,11 @@
 import { Component, ComponentFactoryResolver, ComponentRef, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+<<<<<<< HEAD
 import { ActivatedRoute, Router } from '@angular/router';
 import { CustomerResponse } from 'src/app/customer/customermodel/customer-request';
+=======
+import { Router } from '@angular/router';
+import { CustomerResponse } from 'src/app/components/customer/customermodel/customer-request';
+>>>>>>> 50f4c6697cf8bd8871501f99e7ca0964c64f4bfb
 import { CustomerticketserviceService } from 'src/app/services/customerticketservice.service';
 import { TicketserviceService } from 'src/app/services/ticketservice.service';
 import { TicketInfoResponse } from '../ticketmodel/ticketmodel';
@@ -165,6 +170,13 @@ export class TicketsdetailComponent implements OnInit {
     this.ticketNum = "";
     $('#ticketDetailModal').modal('hide');
   }
+<<<<<<< HEAD
+=======
+  AddTicketDetail() {
+    this.CloseTicketDetailModal();
+    this.showToast('Record Successfully inserted');
+  }
+>>>>>>> 50f4c6697cf8bd8871501f99e7ca0964c64f4bfb
 
   showToast(msg) {
     Swal.fire({
