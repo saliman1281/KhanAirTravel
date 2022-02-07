@@ -45,14 +45,14 @@ export class AddCustomerComponent implements OnInit {
 
   customerFormValidation() {
     this.addCustomerForm = this.fb.group({
-      customerFirstName: ['', Validators.required, Validators.maxLength(48)],
-      customerLastName: ['', Validators.required, Validators.maxLength(48)],
-      customerFatherName: ['', Validators.required, Validators.maxLength(48)],
-      customerCNIC: ['', Validators.required, Validators.maxLength(15)],
-      customerPassport: ['', Validators.required, Validators.maxLength(15)],
-      customerMobiel: ['', Validators.required, Validators.maxLength(14)],
-      customerWhatsApp: ['', Validators.maxLength(14)],
-      customerAddress: ['', Validators.required, Validators.maxLength(198)],
+      customerFirstName: ['', Validators.required],
+      customerLastName: ['', Validators.required],
+      customerFatherName: ['', Validators.required],
+      customerCNIC: ['', Validators.required],
+      customerPassport: ['', Validators.required],
+      customerMobiel: ['', Validators.required],
+      customerWhatsApp: [''],
+      customerAddress: ['', Validators.required],
       custoerImage: [''],
       gender: ['', Validators.required],
     })
@@ -139,4 +139,5 @@ export class AddCustomerComponent implements OnInit {
     return true;
 
   }
+
 }

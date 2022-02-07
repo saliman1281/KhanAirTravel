@@ -44,10 +44,19 @@
                             </select>
                         </div>
                     </div>
-
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Ticket Type</label>
+                            <select type="date" class="form-control" id="ticketType" formControlName='ticketType'
+                                [(ngModel)]="ticketReqObj.ticketType" (change)="TicketTypeChange()">
+                                <option value="single">Single</option>
+                                <option value="return">Return</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
                 <div class="row">
-                    <div class="col-6">
+                    <div class="col-4">
                         <div class="form-group">
                             <label for="exampleInputEmail1">From</label>
                             <input type="text" class="form-control" id="exampleInputPassword1" placeholder="To"
@@ -59,7 +68,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-4">
                         <div class="form-group">
                             <label for="exampleInputPassword1">To</label>
                             <input type="text" class="form-control" id="exampleInputPassword1" placeholder="To"
@@ -71,9 +80,43 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Booking Date</label>
+                            <input type="date" class="form-control" id="booking_date" formControlName='bookingDate'
+                                [(ngModel)]="ticketReqObj.bookingDate"
+                                [ngClass]="{ 'is-invalid': submitted && f.bookingDate.errors }">
+                            <!-- <div *ngIf="submitted && f.bookingDate.errors" class="invalid-feedback">
+                                <div *ngIf="f.bookingDate.errors.required">Booking date is required</div>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="row" *ngIf="isReturn">
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Return From</label>
+                            <input type="text" class="form-control" id="return_from" placeholder="Return From"
+                                formControlName='returnFrom' [(ngModel)]="ticketReqObj.returnFrom">
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Return To</label>
+                            <input type="text" class="form-control" id="return_to" placeholder="Return To"
+                                formControlName='returnTo' [(ngModel)]="ticketReqObj.returnTo">
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Return Date</label>
+                            <input type="date" class="form-control" id="return_date" formControlName='returnDate'
+                                [(ngModel)]="ticketReqObj.returnDate ">
+                        </div>
+                    </div>
                 </div>
                 <div class="row">
-                    <div class="col-6">
+                    <div class="col-4">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Cost Price</label>
                             <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Cost Price"
@@ -85,7 +128,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-4">
                         <div class="form-group">
                             <label for="exampleInputPassword1">Retail Price</label>
                             <input type="text" class="form-control" id="exampleInputPassword1"
@@ -98,30 +141,21 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-6">
+                    <div class="col-4">
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Ticket Type</label>
-                            <select type="date" class="form-control" id="ticketType" formControlName='ticketType'
-                                [(ngModel)]="ticketReqObj.ticketType" (change)="TicketTypeChange()">
-                                <option value="single">Single</option>
-                                <option value="return">Return</option>
-                            </select>
+                            <label for="exampleInputPassword1">Paid Amount</label>
+                            <input type="text" class="form-control" id="exampleInputPassword1"
+                                placeholder="Retail Price" formControlName='ticketAmountPaid'
+                                [(ngModel)]="ticketReqObj.ticketAmountPaid" maxlength="7" autocomplete="off"
+                                (keypress)="numberOnly($event)" (focusout)="CheckGreater()">
+
                         </div>
                     </div>
-                    <div class="col-6">
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Booking Date</label>
-                            <input type="date" class="form-control" id="booking_date" formControlName='bookingDate'
-                                [(ngModel)]="ticketReqObj.bookingDate"
-                                [ngClass]="{ 'is-invalid': submitted && f.bookingDate.errors }">
-                            <!-- <div *ngIf="submitted && f.bookingDate.errors" class="invalid-feedback">
-                                <div *ngIf="f.bookingDate.errors.required">Booking date is required</div>
-                            </div> -->
-                        </div>
+                    <div *ngIf="CheckGreater()" style="color: red;">
+                        <div class="">Paid amount must be less than or equale to retail amount</div>
                     </div>
                 </div>
+
 
             </div>
             <div class="col-md-4">
@@ -139,32 +173,13 @@
                 </div>
             </div>
         </div>
-        <div class="row" *ngIf="isReturn">
-            <div class="col-4">
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Return From</label>
-                    <input type="text" class="form-control" id="return_from" placeholder="Return From"
-                        formControlName='returnFrom' [(ngModel)]="ticketReqObj.returnFrom">
-                </div>
-            </div>
-            <div class="col-4">
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Return To</label>
-                    <input type="text" class="form-control" id="return_to" placeholder="Return To"
-                        formControlName='returnTo' [(ngModel)]="ticketReqObj.returnTo">
-                </div>
-            </div>
-            <div class="col-4">
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Return Date</label>
-                    <input type="date" class="form-control" id="return_date" formControlName='returnDate'
-                        [(ngModel)]="ticketReqObj.returnDate ">
-                </div>
-            </div>
-        </div>
+
         <div class="form-group" style="float:right">
             <button type="button" class="btn btn-default mr-1" (click)="CloseModal()">Close</button>
-            <button (click)="AddTicket()" class="btn btn-primary">Save</button>
+            <button *ngIf="ticketNo==''" [ngClass]="CheckGreater()?'unclickable':''" (click)="AddTicket()"
+                class="btn btn-primary">Save</button>
+            <button *ngIf="ticketNo!=''" [ngClass]="CheckGreater()?'unclickable':''" (click)="updateTicketInfo()"
+                class="btn btn-primary">Update</button>
         </div>
     </form>
 </div>

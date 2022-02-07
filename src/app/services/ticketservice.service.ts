@@ -12,6 +12,10 @@ export class TicketserviceService {
     return this.genericservices.GenericServicePostMethod("TicketInfo/AddticketInfo", data);
   }
 
+  UpdateTicketInfo(data: any) {
+    return this.genericservices.GenericServicePostMethod("TicketInfo/UpdateTicketInfo", data);
+  }
+
   GetAllTicketOfCustomer(data: any) {
     return this.genericservices.GenericServiceGetMethod("TicketInfo/GetAllTicketOfCustomer?customerCNIC=" + data, "");
   }

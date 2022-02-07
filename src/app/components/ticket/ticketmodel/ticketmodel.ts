@@ -54,6 +54,7 @@ export class TicketInfoResponse {
     //entrydate:Date;
     ticketCost: number;
     ticketRetail: number;
+    ticketAmountPaid: number;
     ticketType: string;
     returnFrom: string;
     returnTo: string;
@@ -64,26 +65,3 @@ export class TicketInfoResponse {
     //modifiedBy
 }
 
-export class TicketDetailRequest {
-    customerId: number;
-    ticketNumber: string
-    ticketRetail: number;
-    ticketRefund: number;
-    ticketInstalment: number;
-    //createdDate:
-    //modifiedDate
-    //modifiedBy
-
-}
-export class TicketDetailResponse {
-    ticketDetailId: string;
-    customerId: string;
-    ticketNumber: string
-    ticketRetail: number;
-    ticketRefund: number;
-    ticketInstalment: number;
-    //createdDate:
-    //modifiedDate
-    //modifiedBy
-
-}

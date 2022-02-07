@@ -14,12 +14,12 @@ import { DatePipe } from '@angular/common';
 })
 export class AddticketComponent implements OnInit {
 
+  @Input() customerObjj: CustomerResponse;
   @Output() sendMessageEvent: EventEmitter<any> = new EventEmitter<any>();
   addTicketForm: FormGroup;
   ticketReqObj: TicketInfoRequest;
-  ticketResponseObj: TicketInfoResponse;
+  //ticketResponseObj: TicketInfoResponse;
   submitted = false;
-  @Input() customerObjj: CustomerResponse;
 
   isReturn: boolean = false;
 
@@ -82,21 +82,17 @@ export class AddticketComponent implements OnInit {
   CloseModal() {
     this.sendMessageEvent.emit('close');
   }
-  // updateTicketIno() {
-  //   // this.customerReq.customerImagePath = "";
-  //   this.submitted = true;
-  //   if (this.addTicketForm.valid) {
-  //     this._ticketservice.updateTicketIno(this.ticketReqObj).subscribe((res) => {
-  //       this.onReset();
-  //       //this._router.navigateByUrl("/customer");
-  //       //this.GetAllCustomer();
-  //     });
-  //     console.log(this.ticketReqObj);
-  //   }
-  //   else {
-  //     console.log("form is invalid");
-  //   }
-  // }
+  updateTicketInfo() {
+    this.submitted = true;
+    if (this.addTicketForm.valid) {
+      this._ticketservice.UpdateTicketInfo(this.ticketReqObj).subscribe((res) => {
+        this.sendMessageEvent.emit(res);
+      });
+    }
+    else {
+      console.log("form is invalid");
+    }
+  }
 
   GetTicketInfo(ticketNo) {
 
@@ -108,7 +104,7 @@ export class AddticketComponent implements OnInit {
         this.TicketTypeChange();
       }
       //else
-      //this._router.navigateByUrl("/customer");
+      //this._router.navigate(["/addcustomer", { cnic: customerabc, }]);
 
     }),
       error => {
@@ -127,6 +123,14 @@ export class AddticketComponent implements OnInit {
       return false;
     }
     return true;
+
+  }
+  CheckGreater(): boolean {
+
+    if (this.ticketReqObj.ticketAmountPaid > this.ticketReqObj.ticketRetail) {
+      return true;
+    }
+    return false;
 
   }
 

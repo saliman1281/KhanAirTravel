@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ServicesService } from 'src/app/services/services.service';
 import { CustomerResponse } from '../customermodel/customer-request';
+import swal from 'sweetalert2';
 import Swal from 'sweetalert2';
 import { CustomerticketserviceService } from 'src/app/services/customerticketservice.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 declare var $: any;
-
 @Component({
   selector: 'app-customer',
   templateUrl: './customer.component.html',

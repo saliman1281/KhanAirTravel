@@ -1,5 +1,5 @@
 import { Component, ComponentFactoryResolver, ComponentRef, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CustomerResponse } from 'src/app/customer/customermodel/customer-request';
 import { CustomerticketserviceService } from 'src/app/services/customerticketservice.service';
 import { TicketserviceService } from 'src/app/services/ticketservice.service';
@@ -18,14 +18,23 @@ export class TicketsdetailComponent implements OnInit {
   customerObj: CustomerResponse;
   ticketInfoResponse: TicketInfoResponse[] = [];
   ticketNum: string = '';
+  searchText: string = '';
 
   @ViewChild('greettemp', { read: ViewContainerRef, static: false }) private greetviewcontainerref: ViewContainerRef;
+  @ViewChild('ticketInstalmentView', { read: ViewContainerRef, static: false }) private ticketInstalmentView: ViewContainerRef;
 
-  constructor(private cfr: ComponentFactoryResolver, private vcref: ViewContainerRef, private spinner: NgxSpinnerService,
+  constructor(private _route: ActivatedRoute, private cfr: ComponentFactoryResolver, private vcref: ViewContainerRef, private spinner: NgxSpinnerService,
     private _ticketservice: TicketserviceService, private _customerticketservice: CustomerticketserviceService, private _router: Router) {
     this.customerObj = new CustomerResponse();
   }
   ngOnInit() {
+    const abc = this._route.snapshot.paramMap.get('cnic');
+    if (abc == null || abc == "") {
+      // this._router.navigateByUrl("/customer");
+    }
+    else {
+      this.GetAllTicketOfCustomer(abc);
+    }
 
     let result = this._customerticketservice.GetSharingData();
     if (result != undefined) {
@@ -61,7 +70,7 @@ export class TicketsdetailComponent implements OnInit {
     let greetcomp = this.greetviewcontainerref.createComponent(
       this.cfr.resolveComponentFactory(AddticketComponent)
     );
-    //greetcomp.instance.customerObjj = this.customerObj;
+    greetcomp.instance.customerObjj = this.customerObj;
     greetcomp.instance.ticketNo = ticketNum;
     greetcomp.instance.sendMessageEvent.subscribe(data => {
       if (data == 'close') {
@@ -122,10 +131,30 @@ export class TicketsdetailComponent implements OnInit {
       });
     }
   }
-  OpenTicketDetailModal(param: any) {
+  async OpenTicketDetailModal(param: any) {
     if (param != null && param != "") {
-      this.ticketNum = param;
+      //this.ticketNum = param;
       $('#ticketDetailModal').modal('show');
+      this.vcref.clear();
+      const { TicketinstalmentComponent } = await import('../ticketinstalment/ticketinstalment.component');
+      let greetcomp = this.ticketInstalmentView.createComponent(
+        this.cfr.resolveComponentFactory(TicketinstalmentComponent)
+      );
+      greetcomp.instance.ticketNum = param;
+      greetcomp.instance.sendMessageEvent.subscribe(data => {
+        if (data == 'close') {
+          this.CloseAddModal();
+        } else if (data == 'SUCCESS' && this.ticketNum == "") {
+          this.showToast('Record Successfully inserted');
+          this.GetAllTicketOfCustomer(this.customerObj.customerCNIC);
+          this.CloseAddModal();
+        } else {
+          this.showToast('Record Successfully updated');
+          this.GetAllTicketOfCustomer(this.customerObj.customerCNIC);
+          this.CloseAddModal();
+        }
+      })
+
     }
     else {
       this.showToast('Please select record to add detail');
@@ -136,11 +165,7 @@ export class TicketsdetailComponent implements OnInit {
     this.ticketNum = "";
     $('#ticketDetailModal').modal('hide');
   }
-  AddTicketDetail() {
-    this.CloseTicketDetailModal();
-    this.showToast('Record Successfully inserted');
-  }
-  
+
   showToast(msg) {
     Swal.fire({
       toast: true, position: 'top-end', showConfirmButton: false, timer: 5000,

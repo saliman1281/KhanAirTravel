@@ -30,8 +30,8 @@
                     </h3>
                     <div class="card-tools">
                         <div class="input-group input-group-sm" style="width: 150px;">
-                            <input type="text" name="table_search" class="form-control float-right"
-                                placeholder="Search">
+                            <input type="text" name="table_search" class="form-control float-right" placeholder="Search"
+                                [(ngModel)]="searchText">
 
                             <div class="input-group-append">
                                 <button type="submit" class="btn btn-default">
@@ -43,7 +43,8 @@
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body table-responsive p-0" style="height: 400px;">
-                    <table class="table table-head-fixed text-nowrap">
+                    <table class="table table-head-fixed text-nowrap"
+                        *ngIf="(ticketInfoResponse | filter: searchText).length > 0; else noResults">
                         <thead>
                             <tr>
                                 <th>Id</th>
@@ -51,6 +52,7 @@
                                 <th>Ticket PNR</th>
                                 <th>Retail Price</th>
                                 <th>Due Amount</th>
+                                <th>Paid Amount</th>
                                 <!-- <th>Installment</th> -->
                                 <th>Booking Date</th>
                                 <th>From Location</th>
@@ -61,12 +63,14 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let r of ticketInfoResponse;let i=index;">
+                            <tr *ngFor="let r of ticketInfoResponse| filter:searchText;let i=index;"
+                                [ngClass]="r.ticketAmountPaid<r.ticketRetail?'bg-color':''">
                                 <td>{{i+1}}</td>
                                 <td>{{r.ticketNumber}}</td>
                                 <td>{{r.ticketPNR}}</td>
                                 <td>{{r.ticketRetail}}</td>
-                                <td>{{(r.ticketRetail-20)}}</td>
+                                <td>{{(r.ticketRetail-r.ticketAmountPaid)}}</td>
+                                <td>{{r.ticketAmountPaid}}</td>
                                 <td>{{r.bookingDate|date:'dd-MMM-yyyy'}}</td>
                                 <td>{{r.fromLocation}}</td>
                                 <td>{{r.toLocation}}</td>
@@ -78,15 +82,17 @@
                                     <a class="p-2" href="javascript:void(0)"
                                         (click)="OpenDeleteModal(r.ticketNumber)"><i class="fas fa-trash"></i></a>
                                     <a class="p-2" href="javascript:void(0)"
-                                        (click)="OpenTicketDetailModal(r.ticketNumber)"><i
+                                        (click)="OpenTicketDetailModal(r.ticketNumber)"
+                                        [ngClass]="r.ticketRetail==r.ticketAmountPaid?'unclickable':''"><i
                                             class="fas fa-plus"></i>Add</a>
                                 </td>
 
                             </tr>
-
-
                         </tbody>
                     </table>
+                    <ng-template #noResults>
+                        <p style="text-align:center;color: red;">No results found for "{{searchText}}".</p>
+                    </ng-template>
                 </div>
                 <!-- /.card-body -->
             </div>
@@ -116,7 +122,7 @@
     <!-- /.modal-dialog -->
 </div>
 <div class="modal fade" id="ticketDetailModal">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Add Detail</h4>
@@ -125,31 +131,11 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="row">
-                    <div class="col-4">
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Ticket No</label>
-                            <input type="text" class="form-control" id="return_from" readonly placeholder="Asd12345">
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">PNR No</label>
-                            <input type="text" class="form-control" id="return_from" readonly placeholder="DDE456">
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Amount</label>
-                            <input type="text" class="form-control" id="return_Amount" placeholder="Enter Amount">
-                        </div>
-                    </div>
-                </div>
+
+                <ng-template #ticketInstalmentView></ng-template>
+
             </div>
-            <div class="modal-footer justify-content-between">
-                <button (click)="CloseTicketDetailModal()" class="btn btn-default">Close</button>
-                <button (click)="AddTicketDetail()" class="btn btn-primary">Save</button>
-            </div>
+
         </div>
         <!-- /.modal-content -->
     </div>
