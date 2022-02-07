@@ -135,7 +135,7 @@ export class TicketsdetailComponent implements OnInit {
     if (param != null && param != "") {
       //this.ticketNum = param;
       $('#ticketDetailModal').modal('show');
-      this.vcref.clear();
+      this.ticketInstalmentView.clear();
       const { TicketinstalmentComponent } = await import('../ticketinstalment/ticketinstalment.component');
       let greetcomp = this.ticketInstalmentView.createComponent(
         this.cfr.resolveComponentFactory(TicketinstalmentComponent)
@@ -143,15 +143,15 @@ export class TicketsdetailComponent implements OnInit {
       greetcomp.instance.ticketNum = param;
       greetcomp.instance.sendMessageEvent.subscribe(data => {
         if (data == 'close') {
-          this.CloseAddModal();
+          this.CloseTicketDetailModal();
         } else if (data == 'SUCCESS' && this.ticketNum == "") {
           this.showToast('Record Successfully inserted');
           this.GetAllTicketOfCustomer(this.customerObj.customerCNIC);
-          this.CloseAddModal();
+          this.CloseTicketDetailModal();
         } else {
           this.showToast('Record Successfully updated');
           this.GetAllTicketOfCustomer(this.customerObj.customerCNIC);
-          this.CloseAddModal();
+          this.CloseTicketDetailModal();
         }
       })
 
@@ -163,6 +163,7 @@ export class TicketsdetailComponent implements OnInit {
   }
   CloseTicketDetailModal() {
     this.ticketNum = "";
+    this.ticketInstalmentView.clear();
     $('#ticketDetailModal').modal('hide');
   }
   AddTicketDetail() {

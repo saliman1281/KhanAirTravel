@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CustomerResponse } from 'src/app/customer/customermodel/customer-request';
+import { CustomerResponse } from 'src/app/components/customer/customermodel/customer-request';
 import { TicketserviceService } from 'src/app/services/ticketservice.service';
 import { TicketInfoRequest, TicketInfoResponse } from '../ticketmodel/ticketmodel';
 import { DatePipe } from '@angular/common';

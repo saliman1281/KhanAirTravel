@@ -5,7 +5,6 @@ import { CustomerComponent } from './components/customer/customer/customer.compo
 import { DealerComponent } from './components/dealer/dealer/dealer.component';
 import { ReportsComponent } from './components/reports/reports/reports.component';
 import { AddCustomerComponent } from './components/customer/add-customer/add-customer.component';
-import { TicketinformationComponent } from './components/ticket/ticketinformation/ticketinformation.component';
 import { TicketsdetailComponent } from './components/ticket/ticketsdetail/ticketsdetail.component';
 import { DealerdetailComponent } from './components/dealer/dealerdetail/dealerdetail.component';
 import { DailyexpenseComponent } from './components/expense/dailyexpense/dailyexpense.component';
@@ -19,7 +18,6 @@ const routes: Routes = [
   { path: 'dealerdetail', component: DealerdetailComponent },
   { path: 'reports', component: ReportsComponent },
   { path: 'addcustomer', component: AddCustomerComponent },
-  { path: 'ticketinformation', component: TicketinformationComponent },
   { path: 'ticketsdetail', component: TicketsdetailComponent },
   { path: 'dailyexpense', component: DailyexpenseComponent },
   { path: '**', component: PagenotfoundComponent },
