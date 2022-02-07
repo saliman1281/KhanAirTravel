@@ -9,10 +9,10 @@ declare var $: any;
   styleUrls: ['./ticketinstalment.component.css']
 })
 export class TicketinstalmentComponent implements OnInit {
-  ticketNum: string = "";
-  @Output() sendMessageEvent: EventEmitter<any> = new EventEmitter<any>();
 
+  ticketNum: string = "";
   searchText: string = "";
+  @Output() sendMessageEvent: EventEmitter<any> = new EventEmitter<any>();
   ticketDetailRequest: TicketDetailRequest;
   ticketDetailResponse: TicketDetailResponse[] = [];
 

@@ -11,7 +11,6 @@ import { CustomerComponent } from './components/customer/customer/customer.compo
 import { DealerComponent } from './components/dealer/dealer/dealer.component';
 import { ReportsComponent } from './components/reports/reports/reports.component';
 import { AddCustomerComponent } from './components/customer/add-customer/add-customer.component';
-import { TicketinformationComponent } from './components/ticket/ticketinformation/ticketinformation.component';
 import { TicketsdetailComponent } from './components/ticket/ticketsdetail/ticketsdetail.component';
 import { RouterModule } from '@angular/router';
 import { DealerdetailComponent } from './components/dealer/dealerdetail/dealerdetail.component';
@@ -25,6 +24,7 @@ import { FilterPipe } from './pipes/filter.pipe';
 import { AddticketComponent } from './components/ticket/addticket/addticket.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TicketinstalmentComponent } from './components/ticket/ticketinstalment/ticketinstalment.component';
 
 
 @NgModule({
@@ -39,13 +39,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     DealerComponent,
     ReportsComponent,
     AddCustomerComponent,
-    TicketinformationComponent,
     TicketsdetailComponent,
     DealerdetailComponent,
     DailyexpenseComponent,
     PagenotfoundComponent,
     FilterPipe,
-    AddticketComponent
+    AddticketComponent,
+    TicketinstalmentComponent
   ],
   imports: [
     NgxSpinnerModule,
