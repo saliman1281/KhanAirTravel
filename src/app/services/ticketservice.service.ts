@@ -24,6 +24,6 @@ export class TicketserviceService {
     return this.genericservices.GenericServiceGetMethod("TicketInfo/GetTicketInfo?ticketNumber=" + data, "");
   }
   DeleteTicket(data: any) {
-    return this.genericservices.GenericServiceGetMethod("TicketInfo/DeleteTicket?ticketNumber=" + data, "");
+    return this.genericservices.GenericServiceGetMethod("TicketInfo/DeleteTicketInfo?ticketNumber=" + data, "");
   }
 }

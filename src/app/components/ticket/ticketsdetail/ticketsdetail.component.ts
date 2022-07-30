@@ -3,9 +3,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CustomerResponse } from 'src/app/components/customer/customermodel/customer-request';
 import { CustomerticketserviceService } from 'src/app/services/customerticketservice.service';
 import { TicketserviceService } from 'src/app/services/ticketservice.service';
-import { TicketInfoResponse } from '../ticketmodel/ticketmodel';
 import Swal from 'sweetalert2';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { TicketInfoResponse } from '../ticketmodel/ticketmodel';
 declare var $: any;
 
 @Component({
@@ -63,15 +63,16 @@ export class TicketsdetailComponent implements OnInit {
     this.greetviewcontainerref.clear();
     $('#addModal').modal('hide');
   }
-  async navigateToTicketUpdate(ticketNum: any) {
+  async navigateToTicketUpdate(ticketNum: any,param:any) {
     $('#addModal').modal('show');
-    this.vcref.clear();
+    this.greetviewcontainerref.clear();
     const { AddticketComponent } = await import('../addticket/addticket.component');
     let greetcomp = this.greetviewcontainerref.createComponent(
       this.cfr.resolveComponentFactory(AddticketComponent)
     );
     greetcomp.instance.customerObjj = this.customerObj;
     greetcomp.instance.ticketNo = ticketNum;
+    greetcomp.instance.editString=param;
     greetcomp.instance.sendMessageEvent.subscribe(data => {
       if (data == 'close') {
         this.CloseAddModal();
@@ -89,7 +90,7 @@ export class TicketsdetailComponent implements OnInit {
   }
   async AddTicketInfo() {
 
-    this.vcref.clear();
+    this.greetviewcontainerref.clear();
     const { AddticketComponent } = await import('../addticket/addticket.component');
     let greetcomp = this.greetviewcontainerref.createComponent(
       this.cfr.resolveComponentFactory(AddticketComponent)
@@ -131,7 +132,7 @@ export class TicketsdetailComponent implements OnInit {
       });
     }
   }
-  async OpenTicketDetailModal(param: any) {
+  async OpenTicketDetailModal(param: any,remaining=0) {
     if (param != null && param != "") {
       //this.ticketNum = param;
       $('#ticketDetailModal').modal('show');
@@ -141,13 +142,14 @@ export class TicketsdetailComponent implements OnInit {
         this.cfr.resolveComponentFactory(TicketinstalmentComponent)
       );
       greetcomp.instance.ticketNum = param;
+      greetcomp.instance.remainingAmount=remaining;
       greetcomp.instance.sendMessageEvent.subscribe(data => {
         if (data == 'close') {
           this.CloseTicketDetailModal();
         } else if (data == 'SUCCESS' && this.ticketNum == "") {
           this.showToast('Record Successfully inserted');
           this.GetAllTicketOfCustomer(this.customerObj.customerCNIC);
-          this.CloseTicketDetailModal();
+          //this.CloseTicketDetailModal();
         } else {
           this.showToast('Record Successfully updated');
           this.GetAllTicketOfCustomer(this.customerObj.customerCNIC);

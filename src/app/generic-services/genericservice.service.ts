@@ -19,7 +19,8 @@ const headersOpt = {
   providedIn: 'root'
 })
 export class GenericserviceService {
-  baseUrl = "https://localhost:44335/api/";
+  baseUrl = "https://localhost:7271/api/";
+  //baseUrl = "http://localhost:82/api/";
   constructor(private http: HttpClient) { }
 
   GenericServiceGetMethod(url: string, data: any) {

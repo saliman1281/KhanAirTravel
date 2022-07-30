@@ -54,6 +54,7 @@
                                     <th>WhatsApp</th>
                                     <th>CNIC</th>
                                     <th>Address</th>
+                                    <th>Visa Detail</th>
                                     <th>TicketHistory</th>
                                     <th>Action</th>
                                 </tr>
@@ -66,8 +67,8 @@
                                     <td>{{r.customerWhatsAppNumber}}</td>
                                     <td>{{r.customerCNIC}}</td>
                                     <td>{{r.customerAddress}}</td>
-                                    <td><a class="" href="javascript:void(0)" (click)="navigateToTicket(r)">History</a>
-                                    </td>
+                                    <td><a class="" href="javascript:void(0)" (click)="navigateToVisaDetil(r)">VisaDetails</a></td>
+                                    <td><a class="" href="javascript:void(0)" (click)="navigateToTicket(r)">History</a></td>
                                     <td>
 
                                         <a class="p-2" href="javascript:void(0)" (click)="navigateTo(r.customerCNIC)"><i

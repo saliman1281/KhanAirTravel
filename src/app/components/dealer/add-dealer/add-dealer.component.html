@@ -1,0 +1,73 @@
+<div>
+    <form [formGroup]="addDealerForm">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Name</label>
+                            <input type="text" class="form-control" id="exampleInputEmail1"
+                                placeholder="Enter dealer name" formControlName='dealerName'
+                                [(ngModel)]="dealerInfoRequest.dealerName"
+                                [ngClass]="{ 'is-invalid': submitted && f.dealerName.errors }" maxlength="30"
+                                autocomplete="off">
+                            <div *ngIf="submitted && f.dealerName.errors" class="invalid-feedback">
+                                <div *ngIf="f.dealerName.errors.required">Dealer name is required</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">CNIC</label>
+                            <input type="text" class="form-control" id="exampleInputPassword1"
+                                placeholder="Enter CNIC number" formControlName='dealerCNIC'
+                                [(ngModel)]="dealerInfoRequest.dealerCNIC"
+                                [ngClass]="{ 'is-invalid': submitted && f.dealerCNIC.errors }" maxlength="30"
+                                autocomplete="off" (keypress)="numberOnly($event)">
+                            <div *ngIf="submitted && f.dealerCNIC.errors" class="invalid-feedback">
+                                <div *ngIf="f.dealerCNIC.errors.required">CNIC number is required</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Mobile #</label>
+                            <input type="text" class="form-control" id="exampleInputPassword1"
+                                placeholder="Enter mobile number" formControlName='dealerMobile'
+                                [(ngModel)]="dealerInfoRequest.dealerMobile"
+                                [ngClass]="{ 'is-invalid': submitted && f.dealerMobile.errors }" maxlength="30"
+                                autocomplete="off" (keypress)="numberOnly($event)">
+                            <div *ngIf="submitted && f.dealerMobile.errors" class="invalid-feedback">
+                                <div *ngIf="f.dealerMobile.errors.required">Mobile number is required</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Address</label>
+                            <textarea type="text" class="form-control" id="customerAddress" placeholder="Address"
+                                formControlName='dealerAddress' [(ngModel)]="dealerInfoRequest.dealerAddress"
+                                [ngClass]="{ 'is-invalid': submitted && f.dealerAddress.errors }"></textarea>
+                            <div *ngIf="submitted && f.dealerAddress.errors" class="invalid-feedback" maxlength="198">
+                                <div *ngIf="f.dealerAddress.errors.required">Address is required</div>
+                            </div>
+        
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group" style="float:right">
+            <button type="button" class="btn btn-default mr-1" (click)="CloseModal()">Close</button>
+            <button *ngIf="delearNo==0"   (click)="AddDealer()"  class="btn btn-primary">Save</button>
+            <button *ngIf="delearNo!=0"  (click)="updateDealerInfo()"
+            class="btn btn-primary">Update</button>
+        </div>
+    </form>
+</div>

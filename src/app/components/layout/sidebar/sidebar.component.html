@@ -1,7 +1,7 @@
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="javascript:void()" class="brand-link" (click)="GoToDashboard()">
+    <a href="javascript:void()" class="brand-link" (click)="RoutTo('dashboard')">
         <img src="assets/dist/img/AdminLTELogo.png" alt="KAS" class="brand-image img-circle elevation-3"
             style="opacity: .8">
         <span class="brand-text font-weight-light">K A S</span>
@@ -17,7 +17,7 @@
                with font-awesome or any other icon font library -->
                 <li class="nav-item">
                     <a href="javascript:void(0);" class="nav-link"
-                        [ngClass]="isDashboard ? 'nav-link active' : 'nav-link'" (click)="GoToDashboard()">
+                        [ngClass]="isDashboard ? 'nav-link active' : 'nav-link'" (click)="RoutTo('dashboard')">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
                             Dashboard
@@ -26,7 +26,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="javascript:void(0);" class="nav-link"
-                        [ngClass]="isCustomer ? 'nav-link active' : 'nav-link'" (click)="GoToCustomer()">
+                        [ngClass]="isCustomer ? 'nav-link active' : 'nav-link'" (click)="RoutTo('customer')">
                         <i class="nav-icon fas fa-user"></i>
                         <p>
                             Customer
@@ -35,7 +35,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="javascript:void(0);" class="nav-link"
-                        [ngClass]="isDealerHistory ? 'nav-link active' : 'nav-link'" (click)="GoToDealer()">
+                        [ngClass]="isDealerHistory ? 'nav-link active' : 'nav-link'" (click)="RoutTo('dealerdetails')">
                         <i class="nav-icon fas fa-user-alt"></i>
                         <p>
                             Dealer
@@ -44,7 +44,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="javascript:void(0);" [ngClass]="isExpense ? 'nav-link active' : 'nav-link'"
-                        (click)="GoToExpense()" class="nav-link">
+                        (click)="RoutTo('dailyexpense')" class="nav-link">
                         <i class="nav-icon fas fa-user-alt"></i>
                         <p>
                             Daily Expense
@@ -52,8 +52,17 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="javascript:void(0);" [ngClass]="isSetting ? 'nav-link active' : 'nav-link'"
+                        (click)="RoutTo('setting')" class="nav-link">
+                        <i class="nav-icon fas fa-user-alt"></i>
+                        <p>
+                            Setting
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="javascript:void(0);" [ngClass]="isReport ? 'nav-link active' : 'nav-link'"
-                        (click)="GoToReports()">
+                        (click)="RoutTo('reports')">
                         <i class="nav-icon fas fa-chart-pie"></i>
                         <p>
                             Report

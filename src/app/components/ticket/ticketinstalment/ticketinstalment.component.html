@@ -3,27 +3,34 @@
         <div class="form-group">
             <label for="exampleInputEmail1">Ticket No</label>
             <input type="text" class="form-control" id="return_from" readonly placeholder="Asd12345"
-                [(ngModel)]="ticketNum">
+                [(ngModel)]="ticketInstalmentRequest.ticketNumber">
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="form-group">
+            <label for="exampleInputEmail1">Remainig Amount</label>
+            <input type="text" class="form-control" id="return_from" readonly placeholder="Asd12345"
+                [(ngModel)]="remainingAmount">
         </div>
     </div>
     <div class="col-4">
         <div class="form-group">
             <label for="exampleInputEmail1">Instalment Amount</label>
-            <input type="text" class="form-control" id="return_from" placeholder="Enter instalment amount">
+            <input type="text" class="form-control" id="return_from" maxlength="7" autocomplete="off"
+                [(ngModel)]="ticketInstalmentRequest.ticketInstalmentAmount" (keypress)="numberOnly($event)">
         </div>
     </div>
-    <div class="col-4">
-        <div class="form-group">
-            <label for="exampleInputEmail1">Refund Amount</label>
-            <input type="text" class="form-control" id="return_Amount" placeholder="Enter Amount">
-        </div>
-    </div>
+</div>
+<div class="row" *ngIf="isRemaning">
+    <p style="color: red;">
+        Entered amount must be less than or equal to remaning amount
+    </p>
 </div>
 <div class="row">
     <div class="col-12">
         <div class="form-group" style="float: right;">
             <button (click)="CloseTicketDetailModal()" class="btn btn-default mr-2">Close</button>
-            <button (click)="AddTicketDetail()" class="btn btn-primary">Save</button>
+            <button  (click)="AddTicketDetail()" class="btn btn-primary">Save</button>
         </div>
     </div>
 </div>
@@ -42,7 +49,7 @@
         <hr>
         <div class="card-body table-responsive p-0" style="height: 400px;">
             <table class="table table-head-fixed text-nowrap"
-                *ngIf="(ticketDetailResponse | filter: searchText).length > 0; else noResults">
+                *ngIf="(ticketInstalmentResponse | filter: searchText).length > 0; else noResults">
                 <thead>
                     <tr>
                         <th>Sr #</th>
@@ -53,14 +60,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let r of ticketDetailResponse| filter:searchText;let i=index;">
+                    <tr *ngFor="let r of ticketInstalmentResponse| filter:searchText;let i=index;">
                         <td>{{i+1}}</td>
-                        <td>{{r.createdDate}}</td>
-                        <td>{{r.ticketInstalment}}</td>
+                        <td>{{r.createDate|date:'mediumDate'}}</td>
+                        <td>{{r.ticketInstalmentAmount}}</td>
                         <td>
-                            <a class="p-2" href="javascript:void(0)" (click)="TicketDetailUpdate(r)"><i
-                                    class="fas fa-edit"></i></a>
-                            <a class="p-2" href="javascript:void(0)" (click)="OpenDeleteModal(r.ticketNumber)"><i
+                            <!-- <a class="p-2" href="javascript:void(0)" (click)="TicketDetailUpdate(r.ticketInstalmentId)"><i
+                                    class="fas fa-edit"></i></a> -->
+                            <a class="p-2" href="javascript:void(0)" (click)="OpenDeleteModal(r.ticketInstalmentId)"><i
                                     class="fas fa-trash"></i></a>
 
                         </td>

@@ -1,7 +1,31 @@
 <div>
     <form [formGroup]="addTicketForm">
-        <div class="row">
+        <div class="row" >
             <div class="col-md-8">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Dealer</label>
+                            <select class="form-control" id="exampleInputEmail1" formControlName='dealer'
+                                [(ngModel)]="ticketReqObj.dealerId"
+                                [ngClass]="{ 'is-invalid': submitted && f.dealer.errors }"
+                                (change)="RepresentativeList(ticketReqObj.dealerId)">
+                                <option *ngFor="let r of dealerCommonResponse" [value]="r.dealerId">{{r.dealerName}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Dealer Representative</label>
+                            <select type="date" class="form-control" id="ticketType" formControlName='representative'
+                                [(ngModel)]="ticketReqObj.representId">
+                                <option *ngFor="let r of representativeCommonResponse" [value]="r.representId">
+                                    {{r.representativeName}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-6">
                         <div class="form-group">
@@ -35,22 +59,21 @@
                         <div class="form-group">
                             <label for="exampleInputEmail1">Airline</label>
                             <select class="form-control" id="exampleInputEmail1" formControlName='airlineType'
-                                [(ngModel)]="ticketReqObj.airlineType"
+                                [(ngModel)]="ticketReqObj.airlineTypeId"
                                 [ngClass]="{ 'is-invalid': submitted && f.airlineType.errors }">
-                                <option value="PIA">PIA</option>
-                                <option value="Emarats Airline">Emarats Airline</option>
-                                <option value="Gulf Airline">Gulf Airline</option>
-                                <option value="SerenAir">SerenAir</option>
+                                <option *ngFor="let r of airlineResponse" [value]="r.airLineId">
+                                    {{r.airLineABR}}</option>
                             </select>
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Ticket Type</label>
-                            <select type="date" class="form-control" id="ticketType" formControlName='ticketType'
-                                [(ngModel)]="ticketReqObj.ticketType" (change)="TicketTypeChange()">
-                                <option value="single">Single</option>
-                                <option value="return">Return</option>
+                            <select class="form-control" id="exampleInpu" formControlName='ticketType'
+                                [(ngModel)]="ticketReqObj.ticketTypeId"
+                                [ngClass]="{ 'is-invalid': submitted && f.airlineType.errors }">
+                                <option *ngFor="let r of ticketTypeResponse" [value]="r.ticketId">
+                                    {{r.ticketTypeName}}</option>
                             </select>
                         </div>
                     </div>
@@ -142,16 +165,16 @@
                         </div>
                     </div>
                     <div class="col-4">
-                        <div class="form-group">
+                        <div class="form-group" *ngIf="HidePaidAmountInput()">
                             <label for="exampleInputPassword1">Paid Amount</label>
                             <input type="text" class="form-control" id="exampleInputPassword1"
                                 placeholder="Retail Price" formControlName='ticketAmountPaid'
                                 [(ngModel)]="ticketReqObj.ticketAmountPaid" maxlength="7" autocomplete="off"
-                                (keypress)="numberOnly($event)" (focusout)="CheckGreater()">
+                                (keypress)="numberOnly($event)">
 
                         </div>
                     </div>
-                    <div *ngIf="CheckGreater()" style="color: red;">
+                    <div *ngIf="isRemaning" style="color: red;">
                         <div class="">Paid amount must be less than or equale to retail amount</div>
                     </div>
                 </div>
@@ -174,12 +197,70 @@
             </div>
         </div>
 
+        <div class="row">
+            <div class="col-3">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Hotel Name</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter hotel name"
+                        formControlName='hotelName' [(ngModel)]="ticketReqObj.hotelName" maxlength="20"
+                        autocomplete="off">
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Cost Price</label>
+                    <input type="text" class="form-control" id="exampleInputPassword1" placeholder=""
+                        formControlName='hotelCostPrice' [(ngModel)]="ticketReqObj.hotelCostPrice" maxlength="7"
+                        autocomplete="off" (keypress)="numberOnly($event)">
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Retail Price</label>
+                    <input type="text" class="form-control" id="exampleInputPassword1" placeholder=""
+                        formControlName='hotelRetailPrice' [(ngModel)]="ticketReqObj.hotelRetailPrice" maxlength="7"
+                        autocomplete="off" (keypress)="numberOnly($event)">
+
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Booking Date</label>
+                    <input type="date" class="form-control" id="exampleInputPassword1" formControlName='hotelBokingDate'
+                        [(ngModel)]="ticketReqObj.hotelBokingDate" autocomplete="off">
+
+                </div>
+            </div>
+
+        </div>
+
         <div class="form-group" style="float:right">
             <button type="button" class="btn btn-default mr-1" (click)="CloseModal()">Close</button>
-            <button *ngIf="ticketNo==''" [ngClass]="CheckGreater()?'unclickable':''" (click)="AddTicket()"
-                class="btn btn-primary">Save</button>
-            <button *ngIf="ticketNo!=''" [ngClass]="CheckGreater()?'unclickable':''" (click)="updateTicketInfo()"
-                class="btn btn-primary">Update</button>
+            <button *ngIf="ticketNo==''" (click)="AddTicket()" class="btn btn-primary">Save</button>
+            <button *ngIf="ticketNo!=''" (click)="updateTicketInfo()" class="btn btn-primary">Update</button>
         </div>
     </form>
 </div>
+
+<div class="modal fade" id="modal-sm">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Small Modal</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>One fine body&hellip;</p>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

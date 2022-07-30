@@ -1,0 +1,163 @@
+<div>
+    <form [formGroup]="addVisaForm">
+        <div class="row">
+            <div class="col-md-7">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Dealer</label>
+                            <select class="form-control" id="exampleInputEmail1" formControlName='dealer'
+                                [(ngModel)]="visaInfoRequest.dealerId"
+                                [ngClass]="{ 'is-invalid': submitted && f.dealer.errors }"
+                                (change)="RepresentativeList(visaInfoRequest.dealerId)">
+                                <option *ngFor="let r of dealerCommonResponse" [value]="r.dealerId">{{r.dealerName}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Dealer Representative</label>
+                            <select type="date" class="form-control" id="ticketType" formControlName='representative'
+                                [(ngModel)]="visaInfoRequest.representId">
+                                <option *ngFor="let r of representativeCommonResponse" [value]="r.representId">
+                                    {{r.representativeName}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- <div class="col-1">
+                        <div class="dropdown" style="margin-top: 32px;">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            </button>
+                            <div class="dropdown-menu">
+                                <form [formGroup]="addVisaForm" class="px-4 py-3">
+                                    <h2>Representative Information</h2>
+                                    <hr class="px-2">
+                                    <div class="form-group">
+                                        <label for="exampleDropdownFormEmail1">Name</label>
+                                        <input type="text" class="form-control"
+                                            [(ngModel)]="representativeRequest.representativeName"
+                                            formControlName='repName' placeholder="Enter Representative name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleDropdownFormPassword1">Mobile #</label>
+                                        <input type="text" class="form-control" formControlName='repMobile'
+                                            [(ngModel)]="representativeRequest.representativeMobile"
+                                            placeholder="Enter Mobile Number" (keypress)="numberOnly($event)">
+                                    </div>
+                                    <button class="btn btn-primary" (click)="AddRefInfo()">Save</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Visa Number</label>
+                            <input type="text" class="form-control" id="exampleInputEmail1"
+                                placeholder="Enter visa number" formControlName='visaNumber'
+                                [(ngModel)]="visaInfoRequest.visaNumber"
+                                [ngClass]="{ 'is-invalid': submitted && f.visaNumber.errors }" maxlength="30"
+                                autocomplete="off">
+                            <div *ngIf="submitted && f.visaNumber.errors" class="invalid-feedback">
+                                <div *ngIf="f.visaNumber.errors.required">Visa number is required</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Visa Type</label>
+                            <!-- <select class="form-control" id="exampleInputEmail1" formControlName='visaType'
+                                [(ngModel)]="visaInfoRequest.visaType"
+                                [ngClass]="{ 'is-invalid': submitted && f.visaType.errors }">
+                                <option value="Visit">Visit</option>
+                                <option value="Umrah">Umrah</option>
+                                <option value="Working Visa">Working Visa</option>
+                            </select> -->
+                            <select type="date" class="form-control" id="ticketType" formControlName='visaType'
+                                [(ngModel)]="visaInfoRequest.visaTypeId">
+                                <option *ngFor="let r of visaTypeResponse" [value]="r.visaTypeId">
+                                    {{r.visaTypeName}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Country Name</label>
+                            <input type="text" class="form-control" id="exampleInputPassword1"
+                                placeholder="Enter country name" formControlName='visaCountry'
+                                [(ngModel)]="visaInfoRequest.visaCountry"
+                                [ngClass]="{ 'is-invalid': submitted && f.visaCountry.errors }" maxlength="30"
+                                autocomplete="off" autocapitalize="characters">
+                            <div *ngIf="submitted && f.visaCountry.errors" class="invalid-feedback">
+                                <div *ngIf="f.visaCountry.errors.required">Country name is required</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Cost Price</label>
+                            <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Cost Price"
+                                formControlName='visaCostPrice' [(ngModel)]="visaInfoRequest.visaCostPrice"
+                                [ngClass]="{ 'is-invalid': submitted && f.visaCostPrice.errors }" maxlength="7"
+                                autocomplete="off" (keypress)="numberOnly($event)">
+                            <div *ngIf="submitted && f.visaCostPrice.errors" class="invalid-feedback">
+                                <div *ngIf="f.visaCostPrice.errors.required">Cost price is required</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Retail Price</label>
+                            <input type="text" class="form-control" id="exampleInputPassword1"
+                                placeholder="Retail Price" formControlName='visaRetailPrice'
+                                [(ngModel)]="visaInfoRequest.visaRetailPrice"
+                                [ngClass]="{ 'is-invalid': submitted && f.visaRetailPrice.errors }" maxlength="7"
+                                autocomplete="off" (keypress)="numberOnly($event)">
+                            <div *ngIf="submitted && f.visaRetailPrice.errors" class="invalid-feedback">
+                                <div *ngIf="f.visaRetailPrice.errors.required">Retail price is required</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Paid Amount</label>
+                            <input type="text" class="form-control" id="exampleInputPassword1"
+                                placeholder="Retail Price" formControlName='visaPaidAmount'
+                                [(ngModel)]="visaInfoRequest.visaPaidAmount" maxlength="7" autocomplete="off"
+                                (keypress)="numberOnly($event)">
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="isRemaning" style="color: red;">
+                    <div class="">Paid amount must be less than or equale to retail amount</div>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <label for="exampleInputFile">Visa Upload</label>
+                <div class="col-md-12">
+                    <img id="blah" src="/assets/dist/img/passport.jpg" alt="your image" />
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="custom-file">
+                                <input type="file" hidden class="custom-file-input" id="exampleInputFile">
+                                <label class="custom-file-label" hidden for="exampleInputFile">Choose file</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group" style="float:right">
+            <button type="button" class="btn btn-default mr-1" (click)="CloseModal()">Close</button>
+            <button *ngIf="visaNo==''" (click)="AddVisa()" class="btn btn-primary">Save</button>
+            <button *ngIf="visaNo!=''" (click)="updateVisaInfo()" class="btn btn-primary">Update</button>
+        </div>
+    </form>
+</div>
