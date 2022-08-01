@@ -33,6 +33,7 @@ import { AddDealerComponent } from './components/dealer/add-dealer/add-dealer.co
 import { DealerdetailsComponent } from './components/dealer/dealerdetails/dealerdetails.component';
 import {CommonService} from './services/commonservice/common.service';
 import { SettingComponent } from './components/setting/setting/setting.component';
+import { DealerTransactionComponent } from './components/dealer/dealerTransaction/dealer-transaction/dealer-transaction.component';
 
 
 @NgModule({
@@ -58,7 +59,8 @@ import { SettingComponent } from './components/setting/setting/setting.component
     DealerinstalmentComponent,
     AddDealerComponent,
     DealerdetailsComponent,
-    SettingComponent
+    SettingComponent,
+    DealerTransactionComponent
   ],
   imports: [
     NgxSpinnerModule,

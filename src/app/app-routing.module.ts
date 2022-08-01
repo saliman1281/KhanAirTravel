@@ -10,6 +10,7 @@ import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.co
 import { VisadetailComponent } from './components/visa/visadetail/visadetail.component';
 import { DealerdetailsComponent } from './components/dealer/dealerdetails/dealerdetails.component';
 import { SettingComponent } from './components/setting/setting/setting.component';
+import { DealerTransactionComponent } from './components/dealer/dealerTransaction/dealer-transaction/dealer-transaction.component';
 
 
 const routes: Routes = [
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'customer', component: CustomerComponent },
   { path: 'dealerdetails', component: DealerdetailsComponent },
+  { path: 'dealerTransaction', component: DealerTransactionComponent },
   { path: 'reports', component: ReportsComponent },
   { path: 'addcustomer', component: AddCustomerComponent },
   { path: 'ticketsdetail', component: TicketsdetailComponent },

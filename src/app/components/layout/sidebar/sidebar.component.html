@@ -34,14 +34,28 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="javascript:void(0);" class="nav-link"
-                        [ngClass]="isDealerHistory ? 'nav-link active' : 'nav-link'" (click)="RoutTo('dealerdetails')">
-                        <i class="nav-icon fas fa-user-alt"></i>
-                        <p>
-                            Dealer
-                        </p>
+                    <a href="javascript:void(0)" class="nav-link" [ngClass]="isDealerHistory ? 'nav-link active' : 'nav-link'">
+                      <i class="nav-icon fas fa-user"></i>
+                      <p>
+                        Dealer
+                        <i class="right fas fa-angle-left"></i>
+                      </p>
                     </a>
-                </li>
+                    <ul class="nav nav-treeview">
+                      <li class="nav-item">
+                        <a href="javascript:void(0);" class="nav-link"
+                        [ngClass]="isDealerRecord ? 'nav-link active' : 'nav-link'" (click)="RoutTo('dealerdetails')">
+                        <i class="far fa-circle nav-icon"></i><p>Dealer</p>
+                    </a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="javascript:void(0);" class="nav-link"
+                        [ngClass]="isDealerTransaction ? 'nav-link active' : 'nav-link'" (click)="RoutTo('dealerTransaction')">
+                        <i class="far fa-circle nav-icon"></i><p>Dealer Transaction</p>
+                    </a>
+                      </li>
+                    </ul>
+                  </li>
                 <li class="nav-item">
                     <a href="javascript:void(0);" [ngClass]="isExpense ? 'nav-link active' : 'nav-link'"
                         (click)="RoutTo('dailyexpense')" class="nav-link">

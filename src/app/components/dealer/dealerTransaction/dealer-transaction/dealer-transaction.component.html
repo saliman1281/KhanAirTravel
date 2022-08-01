@@ -2,12 +2,12 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Dealer Detail</h1>
+                <h1>Dealer Transaction</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="javascript:void()">Dealer</a></li>
-                    <li class="breadcrumb-item active">Dealer</li>
+                    <li class="breadcrumb-item active">Dealer Transaction</li>
                 </ol>
             </div>
         </div>
@@ -85,33 +85,13 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Add Dealer Information</h4>
+                <h4 class="modal-title">Add Dealer Transaction</h4>
                 <button type="button" class="close" (click)="CloseAddModal()" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <ng-template #dealertemp></ng-template>
-            </div>
-
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-</div>
-<div class="modal fade" id="visaDetailModal">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Add Visa Instalment</h4>
-                <button type="button" class="close" (click)="CloseVisaDetailModal()" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-
-                <ng-template #visatInstalmentView></ng-template>
-
+                <!-- <ng-template #dealertemp></ng-template> -->
             </div>
 
         </div>
@@ -133,7 +113,7 @@
             </div>
             <div class="modal-footer justify-content-between">
                 <button (click)="CloseDeleteModal()" class="btn btn-default">Close</button>
-                <button (click)="DeleteVisaInfo()" class="btn btn-primary">Delete</button>
+                <button class="btn btn-primary">Delete</button>
             </div>
         </div>
         <!-- /.modal-content -->
