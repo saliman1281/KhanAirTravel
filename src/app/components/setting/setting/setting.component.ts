@@ -15,6 +15,7 @@ export class SettingComponent implements OnInit {
   errorMessage: string = "";
 
   isUpdate: boolean = false;
+  isData: boolean = false;
 
   representative: boolean = true;
   airline: boolean = false;
@@ -39,15 +40,17 @@ export class SettingComponent implements OnInit {
 
   ngOnInit(): void {
     this.GetAllDealer();
+    this.RepresentativeList(0);
     this.GetAirLineList();
     this.GetTicketTypeList();
+    this.GetAllVisaType();
   }
   GetAllDealer() {
     this._commonService.GetCommonData().subscribe((res: any) => {
       this.dealerCommonResponse = res;
       this.dealerCommonResponse = this.dealerCommonResponse.sort((a, b) => a.dealerName > b.dealerName ? 1 : -1);
       this.representativeRequest.dealerId = this.dealerCommonResponse[0].dealerId;
-      this.RepresentativeList(this.representativeRequest.dealerId);
+      this.isData=true;
     });
   }
   AddRepresentative() {
@@ -58,7 +61,7 @@ export class SettingComponent implements OnInit {
     this.representativeRequest.modifiedBy = '';
     this._commonService.AddRepresentative(this.representativeRequest).subscribe((res: any) => {
       this.showToast('Record Successfully inserted');
-      console.log(res);
+      this.RepresentativeList(0);
       this.ResetAll();
 
     });
@@ -71,7 +74,7 @@ export class SettingComponent implements OnInit {
     this.airLineRequest.modifiedBy = '';
     this._commonService.AddAirLine(this.airLineRequest).subscribe((res: any) => {
       this.showToast('Record Successfully inserted');
-      console.log(res);
+      this.GetAirLineList();
       this.ResetAll();
 
 
@@ -85,7 +88,7 @@ export class SettingComponent implements OnInit {
     this.ticketTypeRequest.modifiedBy = '';
     this._commonService.AddTicketType(this.ticketTypeRequest).subscribe((res: any) => {
       this.showToast('Record Successfully inserted');
-      console.log(res);
+      this.GetTicketTypeList();
       this.ResetAll();
     });
   }
@@ -97,7 +100,7 @@ export class SettingComponent implements OnInit {
     this.visaTypeRequest.modifiedBy = '';
     this._commonService.AddVisaType(this.visaTypeRequest).subscribe((res: any) => {
       this.showToast('Record Successfully inserted');
-      console.log(res);
+      this.GetAllVisaType();
       this.ResetAll();
     });
   }
@@ -123,9 +126,9 @@ export class SettingComponent implements OnInit {
   RepresentativeList(dealerid: any) {
     this._commonService.GetRepresentativeList(dealerid).subscribe((res: any) => {
       this.representativeCommonResponse = res;
-      if (this.ticketReqObj.representId == 0) {
-        this.ticketReqObj.representId = this.representativeCommonResponse[0].representId;
-      }
+      // if (this.ticketReqObj.representId == 0) {
+      //   this.ticketReqObj.representId = this.representativeCommonResponse[0].representId;
+      // }
     });
   }
   GetAllVisaType() {

@@ -38,7 +38,7 @@
                                                     <div class="form-group">
                                                         <label for="exampleInputEmail1">Dealer</label>
                                                         <select class="form-control" id="exampleInputEmail1"
-                                                            [(ngModel)]="representativeRequest.DealerId">
+                                                            [(ngModel)]="representativeRequest.dealerId">
                                                             <option *ngFor="let r of dealerCommonResponse"
                                                                 [value]="r.dealerId">{{r.dealerName}}
                                                             </option>
@@ -50,7 +50,7 @@
                                                         <label for="exampleInputPassword1">Representative Name</label>
                                                         <input type="text" class="form-control" id="cLastName"
                                                             placeholder="Representative Name"
-                                                            [(ngModel)]="representativeRequest.RepName" maxlength="30"
+                                                            [(ngModel)]="representativeRequest.representativeName" maxlength="30"
                                                             autocomplete="off">
                                                     </div>
                                                 </div>
@@ -162,7 +162,7 @@
                         <h3 class="card-title">Setting Detail</h3>
                     </div>
                     <!-- /.representative -->
-                    <div class="card-body table-responsive p-0" *ngIf="representative">
+                    <div class="card-body table-responsive p-0" *ngIf="representative && isData">
                         <table class="table table-head-fixed text-nowrap">
                             <thead>
                                 <tr>
