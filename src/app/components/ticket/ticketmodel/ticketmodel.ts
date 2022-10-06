@@ -4,7 +4,7 @@ export class TicketInfoRequest {
     customerCNIC: string;
     ticketNumber: string;
     ticketPNR: string;
-    airlineType: string;
+    airlineTypeId: number;
     fromLocation: string;
     toLocation: string;
     bookingDate: string;
@@ -12,11 +12,17 @@ export class TicketInfoRequest {
     ticketCost: number;
     ticketRetail: number;
     ticketAmountPaid: number;
-    ticketType: string;
+    ticketTypeId: number;
     returnFrom: string;
     returnTo: string;
     returnDate: string;
+    hotelName: string;
+    hotelCostPrice: number;
+    hotelRetailPrice: number;
+    hotelBokingDate: string;
     passportImage: string;
+    dealerId:number;
+    representId:number;
     //createdDate
     //modifiedDate
     modifiedBy: string;
@@ -25,7 +31,7 @@ export class TicketInfoRequest {
         this.customerCNIC = "";
         this.ticketNumber = "";
         this.ticketPNR = "";
-        this.airlineType = "";
+        this.airlineTypeId;
         this.fromLocation = "";
         this.toLocation = "";
         this.bookingDate = "";
@@ -33,11 +39,17 @@ export class TicketInfoRequest {
         this.ticketCost = 0;
         this.ticketRetail = 0;
         this.ticketAmountPaid = 0;
-        this.ticketType = "";
+        this.ticketTypeId;
         this.returnFrom = "";
         this.returnTo = "";
         this.returnDate = "";
+        this.hotelName = "";
+        this.hotelCostPrice = 0;
+        this.hotelRetailPrice = 0;
+        this.hotelBokingDate = "";
         this.passportImage = "";
+        this.dealerId=0;
+        this.representId=0;
         this.modifiedBy = "";
     }
 }
@@ -47,7 +59,7 @@ export class TicketInfoResponse {
     customerCNIC: string;
     ticketNumber: string;
     ticketPNR: string;
-    airlineType: string;
+    airlineTypeId: string;
     fromLocation: string;
     toLocation: string;
     bookingDate: string;
@@ -55,11 +67,17 @@ export class TicketInfoResponse {
     ticketCost: number;
     ticketRetail: number;
     ticketAmountPaid: number;
-    ticketType: string;
+    ticketTypeId: string;
     returnFrom: string;
     returnTo: string;
     returnDate: string;
+    hotelName: string;
+    hotelCostPrice: number;
+    hotelRetailPrice: number;
+    hotelBokingDate: string;
     passportImage: string;
+    dealerId:number;
+    representId:number;
     //createdDate
     //modifiedDate
     //modifiedBy

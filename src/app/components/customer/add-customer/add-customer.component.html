@@ -7,7 +7,7 @@
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="javascript:void()">Customer</a></li>
+                    <li class="breadcrumb-item"><a href="javascript:void()" routerLink="/customer">Customer</a></li>
                     <li class="breadcrumb-item active">Add Customer</li>
                 </ol>
             </div>
@@ -59,6 +59,19 @@
                         <div class="row">
                             <div class="col-6">
                                 <div class="form-group">
+                                    <label for="exampleInputEmail1">Father Name</label>
+                                    <input type="text" class="form-control" id="cFatherName" placeholder="First Name"
+                                        formControlName='customerFatherName'
+                                        [(ngModel)]="customerReq.customerFatherName"
+                                        [ngClass]="{ 'is-invalid': submitted && f.customerFatherName.errors }"
+                                        maxlength="30" autocomplete="off">
+                                    <div *ngIf="submitted && f.customerFatherName.errors" class="invalid-feedback">
+                                        <div *ngIf="f.customerFatherName.errors.required">Father Name is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
                                     <label for="exampleInputEmail1">Gender</label>
                                     <select type="text" class="form-control" id="cGender" placeholder="Gender Type"
                                         formControlName='gender' [(ngModel)]="customerReq.gender"
@@ -68,19 +81,6 @@
                                     </select>
                                     <div *ngIf="submitted && f.gender.errors" class="invalid-feedback">
                                         <div *ngIf="f.gender.errors.required">Select gender type</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">Father Name</label>
-                                    <input type="text" class="form-control" id="cFatherName" placeholder="First Name"
-                                        formControlName='customerFatherName'
-                                        [(ngModel)]="customerReq.customerFatherName"
-                                        [ngClass]="{ 'is-invalid': submitted && f.customerFatherName.errors }"
-                                        maxlength="30" autocomplete="off">
-                                    <div *ngIf="submitted && f.customerFatherName.errors" class="invalid-feedback">
-                                        <div *ngIf="f.customerFatherName.errors.required">Father Name is required</div>
                                     </div>
                                 </div>
                             </div>

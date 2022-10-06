@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "khanairtraveler"
+    }
+  },
+  "defaultProject": "khanairtraveler",
+  "cli": {
+    "analytics": "e10dff66-069b-4c92-93ac-253184317b63"
+  }
 }

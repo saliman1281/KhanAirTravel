@@ -1,0 +1,162 @@
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Visa Detail</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="javascript:void()" routerLink="/customer">Customer</a></li>
+                    <li class="breadcrumb-item active">VisaDetail</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="card-header">
+        <h3 class="card-title">Customer Name : {{customerObj.customerFirstName}} {{customerObj.customerLastName}}</h3>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <a (click)="OpenAddModal()" rel="noopener" class="btn btn-primary"><i class="fas fa-plus"></i>
+                            Add New</a>
+                    </h3>
+                    <div class="card-tools">
+                        <div class="input-group input-group-sm" style="width: 150px;">
+                            <input type="text" name="table_search" class="form-control float-right" placeholder="Search"
+                                [(ngModel)]="searchText">
+
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-default">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body table-responsive p-0" style="height: 400px;">
+                    <table class="table table-head-fixed text-nowrap"
+                        *ngIf="(visaInfoResponse | filter: searchText).length > 0; else noResults">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>SR#</th>
+                                <th>Visa Number</th>
+                                <th>Visa Type</th>
+                                <th>Country</th> 
+                                <th>Retail Price</th>
+                                <th>Paid Amount</th>
+                                <th>Remaining Amount</th>
+                                <th>Action</th>
+                                <th>Add Instalment</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let r of visaInfoResponse| filter:searchText;let i=index;" >
+                                <td ><img id="blah" *ngIf="r.visaPaidAmount<r.visaRetailPrice" src="/assets/dist/img/notification.gif"  style="height: 30px;" alt="your image" /></td>
+                                <td>{{i+1}}</td>
+                                <td>{{r.visaNumber}}</td>
+                                <td>{{r.visaType}}</td>
+                                <td>{{r.visaCountry}}</td>
+                                <td>{{r.visaRetailPrice}}</td>
+                                <td>{{r.visaPaidAmount}}</td>
+                                <td>{{(r.visaRetailPrice-r.visaPaidAmount)}}</td>
+                                <td>
+                                    <a class="p-1" href="javascript:void(0)" (click)="navigateToVisaUpdate(r.visaNumber,'edit')"><i class="fas fa-edit"></i></a>
+                                    <!-- <a class="p-2" href="javascript:window.print()"><i class="fas fa-print"></i></a> -->
+                                    <a class="p-2" href="javascript:void(0)"  (click)="OpenDeleteModal(r.visaNumber)"><i class="fas fa-trash"></i></a>
+                                </td>
+                                <td>
+                                    <a class="p-2" href="javascript:void(0)"
+                                    (click)="OpenVisaInstalmentModal(r.visaNumber,(r.visaRetailPrice-r.visaPaidAmount))"
+                                    [ngClass]="r.visaRetailPrice==r.visaPaidAmount?'unclickable':''"><i
+                                        class="fas fa-plus"></i>Add</a>
+                                </td>
+                                
+
+                            </tr>
+                        </tbody>
+                    </table>
+                    <ng-template #noResults>
+                        <p style="text-align:center;color: red;">No results found for "{{searchText}}".</p>
+                    </ng-template>
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+        </div>
+    </div>
+
+</section>
+<!-- /.content -->
+<div class="modal fade" id="addModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Add Visa Information</h4>
+                <button type="button" class="close" (click)="CloseAddModal()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <ng-template #visatemp></ng-template>
+            </div>
+
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<div class="modal fade" id="visaDetailModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Add Visa Instalment</h4>
+                <button type="button" class="close" (click)="CloseVisaDetailModal()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <ng-template #visatInstalmentView></ng-template>
+
+            </div>
+
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<div class="modal fade" id="deleteModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Delete</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete?</p>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button (click)="CloseDeleteModal()" class="btn btn-default">Close</button>
+                <button (click)="DeleteVisaInfo()" class="btn btn-primary">Delete</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<ngx-spinner name="visa" bdColor="rgba(51,51,51,0.8)" size="large" color="#fff" type="timer">
+</ngx-spinner>

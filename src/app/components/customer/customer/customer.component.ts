@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ServicesService } from 'src/app/services/services.service';
 import { CustomerResponse } from '../customermodel/customer-request';
-import swal from 'sweetalert2';
 import Swal from 'sweetalert2';
 import { CustomerticketserviceService } from 'src/app/services/customerticketservice.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { CommonService } from 'src/app/services/commonservice/common.service';
 declare var $: any;
 @Component({
   selector: 'app-customer',
@@ -20,10 +20,11 @@ export class CustomerComponent implements OnInit {
 
 
   constructor(private _service: ServicesService, private _customerticketservice: CustomerticketserviceService,
-    private _router: Router, private spinner: NgxSpinnerService) { }
+    private _router: Router, private spinner: NgxSpinnerService,private comnService: CommonService) { }
 
   ngOnInit() {
     this.GetAllCustomer();
+    this.comnService.CreateDBBackUp();
   }
   GetAllCustomer() {
     this.spinner.show('customer');
@@ -65,6 +66,10 @@ export class CustomerComponent implements OnInit {
   navigateToTicket(customerabc: any) {
     this._customerticketservice.ShairingData(customerabc);
     this._router.navigate(["/ticketsdetail"]);
+  }
+  navigateToVisaDetil(customerObj: any) {
+    this._customerticketservice.ShairingData(customerObj);
+    this._router.navigate(["/visadetail"]);
   }
 
   showToast() {

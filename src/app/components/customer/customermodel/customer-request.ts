@@ -13,7 +13,7 @@ export class CustomerRequest {
 }
 
 export class CustomerResponse {
-    custormerId: number;
+    customerId: number;
     customerFirstName: string;
     customerLastName: string
     customerFatherName: string;

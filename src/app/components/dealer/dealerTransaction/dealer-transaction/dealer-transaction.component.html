@@ -1,0 +1,125 @@
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Dealer Transaction</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="javascript:void()">Dealer</a></li>
+                    <li class="breadcrumb-item active">Dealer Transaction</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <a (click)="OpenAddModal()" rel="noopener" class="btn btn-primary"><i class="fas fa-plus"></i>
+                            Add New</a>
+                    </h3>
+                    <div class="card-tools">
+                        <div class="input-group input-group-sm" style="width: 150px;">
+                            <input type="text" name="table_search" class="form-control float-right" placeholder="Search"
+                                [(ngModel)]="searchText">
+
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-default">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body table-responsive p-0" style="height: 400px;">
+                    <table class="table table-head-fixed text-nowrap"
+                        *ngIf="(dealerInfoResponse | filter: searchText).length > 0; else noResults">
+                        <thead>
+                            <tr>
+                                <!-- <th></th> -->
+                                <th>Name</th>
+                                <th>Mobile</th>
+                                <th>Address</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let r of dealerInfoResponse| filter:searchText;let i=index;">
+                                <!-- <td ><img id="blah" src="/assets/dist/img/notification.gif"  style="height: 30px;" alt="your image" /></td> -->
+                                <td>{{r.dealerName}}</td>
+                                <td>{{r.dealerMobile}}</td>
+                                <td>{{r.dealerAddress}}</td>
+                                <td>
+                                    <a class="p-1" href="javascript:void(0)" (click)="navigateToDelearUpdate(r.dealerId)"><i
+                                            class="fas fa-edit"></i></a>
+                                    <!-- <a class="p-2" href="javascript:window.print()"><i class="fas fa-print"></i></a> -->
+                                    <a class="p-2" href="javascript:void(0)" (click)="OpenDeleteModal()"><i
+                                            class="fas fa-trash"></i></a>
+                                    <a class="p-2" href="javascript:void(0)" (click)="OpenDealerModal()"><i
+                                            class="fas fa-plus"></i>Add</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <ng-template #noResults>
+                        <p style="text-align:center;color: red;">No results found for "{{searchText}}".</p>
+                    </ng-template>
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+        </div>
+    </div>
+
+</section>
+<!-- /.content -->
+<div class="modal fade" id="addModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Add Dealer Transaction</h4>
+                <button type="button" class="close" (click)="CloseAddModal()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- <ng-template #dealertemp></ng-template> -->
+            </div>
+
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<div class="modal fade" id="deleteModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Delete</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete?</p>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button (click)="CloseDeleteModal()" class="btn btn-default">Close</button>
+                <button class="btn btn-primary">Delete</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<ngx-spinner name="visa" bdColor="rgba(51,51,51,0.8)" size="large" color="#fff" type="timer">
+</ngx-spinner>
