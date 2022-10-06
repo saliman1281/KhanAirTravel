@@ -14,6 +14,8 @@ export class SettingComponent implements OnInit {
   // addCustomerForm: FormGroup;
   errorMessage: string = "";
 
+  isUpdate: boolean = false;
+
   representative: boolean = true;
   airline: boolean = false;
   tickettype: boolean = false;
@@ -44,12 +46,12 @@ export class SettingComponent implements OnInit {
     this._commonService.GetCommonData().subscribe((res: any) => {
       this.dealerCommonResponse = res;
       this.dealerCommonResponse = this.dealerCommonResponse.sort((a, b) => a.dealerName > b.dealerName ? 1 : -1);
-      this.representativeRequest.DealerId = this.dealerCommonResponse[0].dealerId;
-      this.RepresentativeList(this.representativeRequest.DealerId);
+      this.representativeRequest.dealerId = this.dealerCommonResponse[0].dealerId;
+      this.RepresentativeList(this.representativeRequest.dealerId);
     });
   }
   AddRepresentative() {
-    if (this.representativeRequest.DealerId == null && this.representativeRequest.RepName == null) {
+    if (this.representativeRequest.dealerId == null && this.representativeRequest.representativeName == null) {
       this.errorMessage = "Please Select Dealer And Enter Representative Name.";
       return;
     }
@@ -131,6 +133,9 @@ export class SettingComponent implements OnInit {
       this.visaTypeResponse = res;
       this.visaTypeResponse = this.visaTypeResponse.sort((a, b) => a.visaTypeName > b.visaTypeName ? 1 : -1);
     });
+  }
+  GetDealerName(repId: number) {
+    return this.dealerCommonResponse.find(x => x.dealerId == repId).dealerName;
   }
   ClickTab(type: number) {
     this.representative = false;
