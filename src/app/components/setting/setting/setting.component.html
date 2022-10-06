@@ -14,22 +14,22 @@
                     <div class="col-5 col-sm-3">
                         <div class="nav flex-column nav-tabs h-100" id="vert-tabs-tab" role="tablist"
                             aria-orientation="vertical">
-                            <a class="nav-link active" id="vert-tabs-home-tab" data-toggle="pill" href="#vert-tabs-home"
-                                role="tab" aria-controls="vert-tabs-home" aria-selected="true">Representative</a>
-                            <a class="nav-link" id="vert-tabs-profile-tab" data-toggle="pill" href="#vert-tabs-profile"
-                                role="tab" aria-controls="vert-tabs-profile" aria-selected="false">Air Line</a>
-                            <a class="nav-link" id="vert-tabs-messages-tab" data-toggle="pill"
-                                href="#vert-tabs-messages" role="tab" aria-controls="vert-tabs-messages"
-                                aria-selected="false">Ticket Type</a>
-                            <a class="nav-link" id="vert-tabs-settings-tab" data-toggle="pill"
-                                href="#vert-tabs-settings" role="tab" aria-controls="vert-tabs-settings"
-                                aria-selected="false">Visa Type</a>
+                            <a class="nav-link active" id="vert-tabs-representative-tab" data-toggle="pill" href="#vert-tabs-representative"
+                                role="tab" aria-controls="vert-tabs-representative" aria-selected="true" (click)="ClickTab(0)">Representative</a>
+                            <a class="nav-link" id="vert-tabs-airline-tab" data-toggle="pill" href="#vert-tabs-airline"
+                                role="tab" aria-controls="vert-tabs-airline" aria-selected="false" (click)="ClickTab(1)">Air Line</a>
+                            <a class="nav-link" id="vert-tabs-tickettype-tab" data-toggle="pill"
+                                href="#vert-tabs-tickettype" role="tab" aria-controls="vert-tabs-tickettype"
+                                aria-selected="false" (click)="ClickTab(2)">Ticket Type</a>
+                            <a class="nav-link" id="vert-tabs-visatype-tab" data-toggle="pill"
+                                href="#vert-tabs-visatype" role="tab" aria-controls="vert-tabs-visatype"
+                                aria-selected="false" (click)="ClickTab(3)">Visa Type</a>
                         </div>
                     </div>
                     <div class="col-7 col-sm-9">
                         <div class="tab-content" id="vert-tabs-tabContent">
-                            <div class="tab-pane text-left fade show active" id="vert-tabs-home" role="tabpanel"
-                                aria-labelledby="vert-tabs-home-tab">
+                            <div class="tab-pane text-left fade show active" id="vert-tabs-representative" role="tabpanel"
+                                aria-labelledby="vert-tabs-representative-tab">
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-md-8">
@@ -63,8 +63,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="tab-pane fade" id="vert-tabs-profile" role="tabpanel"
-                                aria-labelledby="vert-tabs-profile-tab">
+                            <div class="tab-pane fade" id="vert-tabs-airline" role="tabpanel"
+                                aria-labelledby="vert-tabs-airline-tab">
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-md-8">
@@ -96,8 +96,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="tab-pane fade" id="vert-tabs-messages" role="tabpanel"
-                                aria-labelledby="vert-tabs-messages-tab">
+                            <div class="tab-pane fade" id="vert-tabs-tickettype" role="tabpanel"
+                                aria-labelledby="vert-tabs-tickettype-tab">
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-md-8">
@@ -120,8 +120,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="tab-pane fade" id="vert-tabs-settings" role="tabpanel"
-                                aria-labelledby="vert-tabs-settings-tab">
+                            <div class="tab-pane fade" id="vert-tabs-visatype" role="tabpanel"
+                                aria-labelledby="vert-tabs-visatype-tab">
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-md-8">
@@ -151,5 +151,106 @@
             <!-- /.card -->
         </div>
         <!-- /.card -->
+    </div>
+    <div class="container-fluid">
+        <div class="card-header">
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Setting Detail</h3>
+                    </div>
+                    <!-- /.representative -->
+                    <div class="card-body table-responsive p-0" *ngIf="representative">
+                        <table class="table table-head-fixed text-nowrap">
+                            <thead>
+                                <tr>
+                                    <th>Code</th>
+                                    <th>Name</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let obj of representativeCommonResponse">
+                                    <td>{{obj.representId}}</td>
+                                    <td>{{obj.representativeName}}</td>
+                                    <td>
+                                        <a class="p-2"><i class="fas fa-edit"></i></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.airline -->
+                    <div class="card-body table-responsive p-0" *ngIf="airline">
+                        <table class="table table-head-fixed text-nowrap">
+                            <thead>
+                                <tr>
+                                    <th>Code</th>
+                                    <th>Short Name</th>
+                                    <th>Full Name</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let obj of airlineResponse">
+                                    <td>{{obj.airLineId}}</td>
+                                    <td>{{obj.airLineABR}}</td>
+                                    <td>{{obj.airLineFullName}}</td>
+                                    <td>
+                                        <a class="p-2"><i class="fas fa-edit"></i></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.tickettype -->
+                    <div class="card-body table-responsive p-0" *ngIf="tickettype">
+                        <table class="table table-head-fixed text-nowrap">
+                            <thead>
+                                <tr>
+                                    <th>Code</th>
+                                    <th>Name</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let obj of ticketTypeResponse">
+                                    <td>{{obj.ticketId}}</td>
+                                    <td>{{obj.ticketTypeName}}</td>
+                                    <td>
+                                        <a class="p-2"><i class="fas fa-edit"></i></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.visatype -->
+                    <div class="card-body table-responsive p-0" *ngIf="visatype">
+                        <table class="table table-head-fixed text-nowrap">
+                            <thead>
+                                <tr>
+                                    <th>Code</th>
+                                    <th>Name</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let obj of visaTypeResponse">
+                                    <td>{{obj.visaTypeId}}</td>
+                                    <td>{{obj.visaTypeName}}</td>
+                                    <td>
+                                        <a class="p-2"><i class="fas fa-edit"></i></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+        </div>
     </div>
 </section>
