@@ -25,6 +25,9 @@ export class DealerTransactionComponent implements OnInit {
   CloseAddModal() {
     $('#addModal').modal('hide');
   }
+  CloseDeleteModal() {
+    $('#addModal').modal('hide');
+  }
 }
 export class DealerTransactionRequest {
 

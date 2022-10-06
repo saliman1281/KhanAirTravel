@@ -20,7 +20,7 @@ const headersOpt = {
 })
 export class GenericserviceService {
   baseUrl = "https://localhost:7271/api/";
-  //baseUrl = "http://localhost:82/api/";
+  //baseUrl = "http://localhost/KASAPI/api/";
   constructor(private http: HttpClient) { }
 
   GenericServiceGetMethod(url: string, data: any) {
